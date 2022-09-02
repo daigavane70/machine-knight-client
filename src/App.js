@@ -2,29 +2,89 @@ import { Field, Formik } from "formik";
 import "./App.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
-function App() {
-  function Filter() {
-    return (
-      <Formik
-        initialValues={{
-          location: "",
-          availableBy: "",
-        }}
-      >
-        {(formik) => {
-          return (
-            <div className="space-y-2">
+function Filter({ onSubmit }) {
+  return (
+    <Formik
+      initialValues={{
+        location: "",
+        type: [],
+        availableBy: "",
+        tenants: "",
+        furnishing: "",
+      }}
+      onSubmit={(values) => {
+        onSubmit(values);
+      }}
+    >
+      {(formik) => {
+        return (
+          <div className="space-y-2">
+            {/*  */}
+            <div className="space-y-1">
+              <div className="text-sm px-1 font-light text-gray-500">City</div>
+              <div class="inline-block relative w-full">
+                <Field as="select" name="location" className={fieldClassName}>
+                  <option value="red">Pune</option>
+                  <option value="green">Bangalore</option>
+                  <option value="blue">Chennai</option>
+                </Field>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    class="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-1">
               {/*  */}
               <div className="space-y-1">
                 <div className="text-sm px-1 font-light text-gray-500">
-                  City
+                  Type
+                </div>
+                <div className="grid grid-cols-3 gap-2 px-2">
+                  <div className="flex space-x-1 text-xs">
+                    <Field type="checkbox" name="type" value="1 RK"></Field>
+                    <div>1 RK</div>
+                  </div>
+                  <div className="flex space-x-1 text-xs">
+                    <Field type="checkbox" name="type" value="1 BHK"></Field>
+                    <div>1 BHK</div>
+                  </div>
+                  <div className="flex space-x-1 text-xs">
+                    <Field type="checkbox" name="type" value="2 BHK"></Field>
+                    <div>2 BHK</div>
+                  </div>
+                  <div className="flex space-x-1 text-xs">
+                    <Field type="checkbox" name="type" value="3 BHK"></Field>
+                    <div>3 BHK</div>
+                  </div>
+                  <div className="flex space-x-1 text-xs">
+                    <Field type="checkbox" name="type" value="4 BHK"></Field>
+                    <div>4 BHK</div>
+                  </div>
+                </div>
+              </div>
+
+              {/*  */}
+              <div className="space-y-1">
+                <div className="text-sm px-1 font-light text-gray-500">
+                  Furnishing
                 </div>
                 <div class="inline-block relative w-full">
-                  <Field as="select" name="location" className={fieldClassName}>
-                    <option value="red">Pune</option>
-                    <option value="green">Bangalore</option>
-                    <option value="blue">Chennai</option>
+                  <Field
+                    as="select"
+                    name="furnishing"
+                    className={fieldClassName}
+                  >
+                    <option value="red">UnFurnished</option>
+                    <option value="red">Fully Furnished</option>
+                    <option value="green">Semi Furnished</option>
                   </Field>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg
@@ -37,57 +97,63 @@ function App() {
                   </div>
                 </div>
               </div>
-              {/*  */}
-              <div className="grid grid-cols-2 gap-1">
-                <div className="space-y-1">
-                  <div className="text-sm px-1 font-light text-gray-500">
-                    Available by
-                  </div>
-                  <div class="inline-block relative w-full">
-                    <DatePicker
-                      selected={formik.values.availableBy}
-                      dateFormat="MMMM d, yyyy"
-                      className={fieldClassName + ""}
-                      name="availableBy"
-                      onChange={(date) =>
-                        formik.setFieldValue("availableBy", date)
-                      }
-                    />
-                  </div>
+            </div>
+            {/*  */}
+            <div className="grid grid-cols-2 gap-1">
+              <div className="space-y-1">
+                <div className="text-sm px-1 font-light text-gray-500">
+                  Available by
                 </div>
-                {/*  */}
-                <div className="space-y-1">
-                  <div className="text-sm px-1 font-light text-gray-500">
-                    Lease type
-                  </div>
-                  <div class="inline-block relative w-full">
-                    <Field
-                      as="select"
-                      name="location"
-                      className={fieldClassName}
+                <div class="inline-block relative w-full">
+                  <DatePicker
+                    selected={formik.values.availableBy}
+                    dateFormat="MMMM d, yyyy"
+                    className={fieldClassName + ""}
+                    name="availableBy"
+                    onChange={(date) =>
+                      formik.setFieldValue("availableBy", date)
+                    }
+                  />
+                </div>
+              </div>
+              {/*  */}
+              <div className="space-y-1">
+                <div className="text-sm px-1 font-light text-gray-500">
+                  Preferred tenants
+                </div>
+                <div class="inline-block relative w-full">
+                  <Field as="select" name="tenants" className={fieldClassName}>
+                    <option value="red">Family</option>
+                    <option value="green">Bachelore</option>
+                    <option value="blue">Any</option>
+                  </Field>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                      class="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
                     >
-                      <option value="red">Pune</option>
-                      <option value="green">Bangalore</option>
-                      <option value="blue">Chennai</option>
-                    </Field>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      <svg
-                        class="fill-current h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                      </svg>
-                    </div>
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
                   </div>
                 </div>
               </div>
             </div>
-          );
-        }}
-      </Formik>
-    );
-  }
+            <button
+              onClick={formik.handleSubmit}
+              className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            >
+              Predict
+            </button>
+          </div>
+        );
+      }}
+    </Formik>
+  );
+}
+
+function App() {
+  const [filters, setFilters] = useState({});
 
   return (
     <div className="">
@@ -107,12 +173,17 @@ function App() {
             <h2 className=" tracking-widest font-bold text-gray-500 border-b pb-1">
               Filters
             </h2>
-            <Filter></Filter>
+            <Filter
+              onSubmit={(values) => {
+                setFilters(values);
+              }}
+            ></Filter>
           </div>
           <div className="col-span-4 bg-slate-50 h-full w-full p-2">
             <h2 className=" tracking-widest font-bold text-gray-500 border-b pb-1">
               Prediction
             </h2>
+            <div>{JSON.stringify(filters)}</div>
           </div>
         </div>
       </div>
