@@ -13,6 +13,7 @@ function Filter({ onSubmit }) {
         availableBy: "",
         tenants: "",
         furnishing: "",
+        floor: 0,
       }}
       onSubmit={(values) => {
         onSubmit(values);
@@ -41,6 +42,7 @@ function Filter({ onSubmit }) {
                 </div>
               </div>
             </div>
+            {/*  */}
             <div className="grid grid-cols-2 gap-1">
               {/*  */}
               <div className="space-y-1">
@@ -48,26 +50,18 @@ function Filter({ onSubmit }) {
                   Type
                 </div>
                 <div className="grid grid-cols-3 gap-2 px-2">
-                  <div className="flex space-x-1 text-xs">
-                    <Field type="checkbox" name="type" value="1 RK"></Field>
-                    <div>1 RK</div>
-                  </div>
-                  <div className="flex space-x-1 text-xs">
-                    <Field type="checkbox" name="type" value="1 BHK"></Field>
-                    <div>1 BHK</div>
-                  </div>
-                  <div className="flex space-x-1 text-xs">
-                    <Field type="checkbox" name="type" value="2 BHK"></Field>
-                    <div>2 BHK</div>
-                  </div>
-                  <div className="flex space-x-1 text-xs">
-                    <Field type="checkbox" name="type" value="3 BHK"></Field>
-                    <div>3 BHK</div>
-                  </div>
-                  <div className="flex space-x-1 text-xs">
-                    <Field type="checkbox" name="type" value="4 BHK"></Field>
-                    <div>4 BHK</div>
-                  </div>
+                  {types.map((type, index) => {
+                    return (
+                      <div className="flex space-x-1 text-xs" key={index}>
+                        <Field
+                          type="checkbox"
+                          name="type"
+                          value={type.value}
+                        ></Field>
+                        <div>{type.label}</div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -82,9 +76,36 @@ function Filter({ onSubmit }) {
                     name="furnishing"
                     className={fieldClassName}
                   >
-                    <option value="red">UnFurnished</option>
-                    <option value="red">Fully Furnished</option>
-                    <option value="green">Semi Furnished</option>
+                    {furnishing.map((ele, index) => {
+                      return <option value={ele.value}>{ele.label}</option>;
+                    })}
+                  </Field>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                      class="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/*  */}
+            <div className="grid grid-cols-2 gap-1">
+              {/*  */}
+              <div className="space-y-1">
+                <div className="text-sm px-1 font-light text-gray-500">
+                  Floor
+                </div>
+                <div class="inline-block relative w-full">
+                  <Field as="select" name="floor" className={fieldClassName}>
+                    {[...Array(10).keys()].map((ele, index) => {
+                      return (
+                        <option value={ele}>{ele == 0 ? "Ground" : ele}</option>
+                      );
+                    })}
                   </Field>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg
@@ -192,6 +213,20 @@ function App() {
     </div>
   );
 }
+
+const types = [
+  { value: "RK1", label: "1 RK" },
+  { value: "BHK1", label: "1 BHK" },
+  { value: "BHK2", label: "2 BHK" },
+  { value: "BHK3", label: "3 BHK" },
+  { value: "BHK4", label: "4 BHK" },
+];
+
+const furnishing = [
+  { value: "furnished", label: "Furnished" },
+  { value: "semifurnished", label: "Semi furnished" },
+  { value: "unfurnished", label: "Un furnished" },
+];
 
 const fieldClassName =
   "block appearance-none w-full bg-white border border-gray-200 hover:border-gray-500 px-2 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-xs";
