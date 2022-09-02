@@ -103,7 +103,7 @@ function Filter({ onSubmit }) {
                   <Field as="select" name="floor" className={fieldClassName}>
                     {[...Array(10).keys()].map((ele, index) => {
                       return (
-                        <option value={ele}>{ele == 0 ? "Ground" : ele}</option>
+                        <option value={ele}>{ele === 0 ? "Ground" : ele}</option>
                       );
                     })}
                   </Field>
