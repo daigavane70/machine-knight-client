@@ -56,7 +56,7 @@ function App() {
     <div className="bg-gradient-to-r from-gray-700/40 via-gray-900/20 to-black/40 bg-transparent">
       {/* Header */}
       <div className="p-4 bg-gray-800 h-[60px] shadow-md grid md:grid-cols-3 content-center justify-items-center fixed top-0 left-0 w-full z-10">
-        <h1 className="tracking-widest font-md text-lg text-cyan-500">
+        <h1 className="tracking-widest font-md text-lg text-red-600 font-extrabold">
           Dharmiks 1.0
         </h1>
         <h1 className="tracking-widest font-bold text-2xl text-cyan-500">
