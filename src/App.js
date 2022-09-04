@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black">
       {/* Header */}
-      <div className="p-4 bg-gray-600 h-[60px] shadow-md grid md:grid-cols-3 content-center justify-items-center fixed top-0 left-0 w-full">
+      <div className="p-4 bg-gray-600 h-[60px] shadow-md grid md:grid-cols-3 content-center justify-items-center fixed top-0 left-0 w-full z-10">
         <h1 className="tracking-widest font-bold text-lg text-cyan-500">
           Dharmiks 1.0
         </h1>
@@ -88,27 +88,11 @@ function App() {
             </div>
             <div className=" space-y-4">
               <div className="space-x-4">
-                {[...Array(10).keys()].map((ele) => {
-                  return (
-                    <div className="p-1 px-4 border border-gray-500 text-cyan-400 inline-block rounded-md">
-                      Rs. {ele * 5000 + 1000}
-                    </div>
-                  );
-                })}
-                <table className="text-white font-light text-sm">
-                  <tbody>
-                    {Object.keys(filters).map((k, i) => {
-                      return (
-                        <tr key={i}>
-                          <th>
-                            <span className="text-sm">{k}</span>
-                          </th>
-                          <th>{filters[k]}</th>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                <div className="text-white font-light text-sm">
+                  {Object.keys(filters).map((k, i) => {
+                    return <td>{filters[k]}</td>;
+                  })}
+                </div>
               </div>
             </div>
           </div>
