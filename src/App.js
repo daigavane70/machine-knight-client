@@ -43,9 +43,9 @@ function App() {
       </div>
 
       {/* Body */}
-      <div className="min-h-screen pt-[60px]">
+      <div className="h-screen pt-[60px]">
         <div className="mx-auto p-4 grid md:grid-cols-8 gap-4 h-full">
-          <div className="col-span-2 bg-gray-800 rounded-md h-full w-full p-4 space-y-2">
+          <div className="md:col-span-2 bg-gray-800 rounded-md h-full w-full p-4 space-y-2">
             <h2 className="tracking-widest font-bold text-blue-500 border-b pb-1 border-gray-500">
               Filters
             </h2>
@@ -55,7 +55,7 @@ function App() {
               }}
             ></Filter>
           </div>
-          <div className=" col-span-6 shadow-md rounded-lg border border-gray-500 h-full w-full p-2 bg-gray-800">
+          <div className=" md:col-span-6 shadow-md rounded-lg border border-gray-500 h-full w-full p-2 bg-gray-800 overflow-auto">
             <h2 className="font-light text-gray-400 border-b border-gray-600 pb-1 text-2xl">
               Prediction
             </h2>
