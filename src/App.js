@@ -36,7 +36,8 @@ function App() {
     setFilters(values);
     const res = await predict(values);
     console.log(res);
-    setResult(0);
+    setResult(res.data);
+    setLoading(false);
   };
 
   return (
