@@ -47,6 +47,7 @@ function App() {
       const res = await predict(values);
       setResult(res.data);
     } catch (err) {
+      window.location.reload();
       seterror("An error occured, please try again");
     }
     setLoading(false);
