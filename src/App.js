@@ -44,7 +44,6 @@ function App() {
     setFilters(values);
     try {
       const res = await predict(values);
-      console.log(res);
       setResult(res.data);
     } catch (err) {
       seterror("An error occured, please try again");
@@ -71,7 +70,7 @@ function App() {
             <h2 className="tracking-widest font-bold text-cyan-400 border-b pb-1 border-gray-500">
               Filters
             </h2>
-            <Filter onSubmit={() => handleSubmit}></Filter>
+            <Filter onSubmit={(values) => handleSubmit(values)}></Filter>
           </div>
           <div className=" md:col-span-6 grid gap-4">
             <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2 bg-gray-800 overflow-auto">
@@ -194,7 +193,7 @@ function Filter({ onSubmit }) {
     }
 
     initialSubmit();
-  }, [onSubmit]);
+  }, []);
 
   return (
     <Formik
@@ -245,8 +244,12 @@ function Filter({ onSubmit }) {
             <div className="space-y-1">
               <div className={filterTitle}>Locality</div>
               <Select
-                options={Object.keys(localityMapping).map((ele) => {
-                  return { label: ele, value: localityMapping[ele] };
+                options={Object.keys(localityMapping).map((ele, index) => {
+                  return {
+                    label: ele,
+                    value: localityMapping[ele],
+                    key: index,
+                  };
                 })}
                 defaultInputValue={Object.keys(localityMapping)[0]}
                 defaultValue={localityMapping[Object.keys(localityMapping)[0]]}
@@ -463,7 +466,9 @@ function Filter({ onSubmit }) {
                   >
                     {Object.keys(houseTypeMapping).map((ele, index) => {
                       return (
-                        <option value={houseTypeMapping[ele]}>{ele}</option>
+                        <option value={houseTypeMapping[ele]} key={index}>
+                          {ele}
+                        </option>
                       );
                     })}
                   </Field>
@@ -505,7 +510,7 @@ function Filter({ onSubmit }) {
                 </label>
                 {Object.keys(ameneties).map((k, i) => {
                   return (
-                    <label className="flex space-x-2 text-xs">
+                    <label className="flex space-x-2 text-xs" key={i}>
                       <Field type="checkbox" name={k}></Field>
                       <div className=" text-gray-400 ">{k}</div>
                     </label>
