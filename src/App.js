@@ -49,11 +49,11 @@ function App() {
   return (
     <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black">
       {/* Header */}
-      <div className="p-4 bg-gray-600 h-[60px] shadow-md grid md:grid-cols-3 content-center justify-items-center fixed top-0 left-0 w-full z-10">
-        <h1 className="tracking-widest font-bold text-lg text-cyan-500">
+      <div className="p-4 bg-gray-800 h-[60px] shadow-md grid md:grid-cols-3 content-center justify-items-center fixed top-0 left-0 w-full z-10">
+        <h1 className="tracking-widest font-md text-lg text-cyan-500">
           Dharmiks 1.0
         </h1>
-        <h1 className="tracking-widest font-light text-2xl">
+        <h1 className="tracking-widest font-bold text-2xl text-cyan-500">
           House Rent Predictor
         </h1>
         <div></div>
@@ -63,7 +63,7 @@ function App() {
       <div className="h-screen pt-[60px]">
         <div className="mx-auto p-4 grid md:grid-cols-8 gap-4 h-full">
           <div className="md:col-span-2 bg-gray-800 rounded-md h-full w-full p-4 space-y-2">
-            <h2 className="tracking-widest font-bold text-blue-500 border-b pb-1 border-gray-500">
+            <h2 className="tracking-widest font-bold text-cyan-400 border-b pb-1 border-gray-500">
               Filters
             </h2>
             <Filter onSubmit={handleSubmit}></Filter>
@@ -79,7 +79,7 @@ function App() {
                 ) : (
                   <>
                     <div className="text-2xl text-cyan-400">Rs.</div>
-                    <div className="text-7xl text-green-500">{result}</div>
+                    <div className="text-7xl text-emerald-400">{result}</div>
                   </>
                 )}
               </div>
@@ -419,7 +419,7 @@ function Filter({ onSubmit }) {
             <div></div>
             {/*  */}
             <div className="space-y-2">
-              <div className=" text-blue-600 font-bold tracking-wider border-b border-gray-500 pb-1">
+              <div className="text-cyan-400 font-bold tracking-wider border-b border-gray-500 pb-1">
                 Amenities
               </div>
               <div className={"grid grid-cols-5 gap-2"}>
