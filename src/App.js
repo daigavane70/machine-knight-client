@@ -129,7 +129,7 @@ function Filter({ onSubmit }) {
     <Formik
       initialValues={{
         type: 1,
-        locality: 466,
+        locality: localityMapping[Object.keys(localityMapping)[0]],
         latitude: 12.9344709,
         longitude: 77.634471,
         lease_type: 3,
@@ -215,6 +215,8 @@ function Filter({ onSubmit }) {
                 options={Object.keys(localityMapping).map((ele) => {
                   return { label: ele, value: localityMapping[ele] };
                 })}
+                defaultInputValue={Object.keys(localityMapping)[0]}
+                defaultValue={localityMapping[Object.keys(localityMapping)[0]]}
                 onChange={(data) => {
                   formik.setValues({ ...formik.values, locality: data.value });
                 }}
@@ -230,6 +232,12 @@ function Filter({ onSubmit }) {
                     };
                   },
                   singleValue: (provided) => {
+                    return {
+                      ...provided,
+                      color: "white",
+                    };
+                  },
+                  input: (provided) => {
                     return {
                       ...provided,
                       color: "white",
