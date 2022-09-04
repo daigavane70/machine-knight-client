@@ -64,7 +64,7 @@ function App() {
         </h1>
         <div></div>
       </div>
-      s{/* Body */}
+      {/* Body */}
       <div className="h-screen pt-[60px] overflow-auto">
         <div className="mx-auto p-4 md:h-full grid md:grid-cols-8 gap-4 overflow-auto">
           <div className="md:col-span-2 bg-gray-800 rounded-md h-full w-full p-4 space-y-2">
@@ -73,47 +73,54 @@ function App() {
             </h2>
             <Filter onSubmit={handleSubmit}></Filter>
           </div>
-          <div className=" md:col-span-6 shadow-md rounded-lg border border-gray-500 h-full w-full p-2 bg-gray-800 overflow-auto">
-            <h2 className="font-light text-gray-400 border-b border-gray-600 pb-1 text-2xl">
-              Prediction
-            </h2>
-            <div className="flex items-center justify-center space-x-2 min-h-[300px]">
-              <div className="flex space-x-2 items-end justify-center">
-                {error ? (
-                  <div className=" text-4xl md:text-7xl text-red-500">
-                    {error}
-                  </div>
-                ) : loading ? (
-                  <div className=" text-4xl md:text-7xl text-blue-600">
-                    Predicting...
-                  </div>
-                ) : (
-                  <>
-                    <div className="text-lg md:text-2xl text-cyan-400">Rs.</div>
-                    <div className=" text-4xl md:text-7xl text-emerald-500">
-                      {result}
+          <div className=" md:col-span-6 grid gap-4">
+            <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2 bg-gray-800 overflow-auto">
+              <h2 className="font-light text-gray-400 border-b border-gray-600 pb-1 text-2xl">
+                Prediction
+              </h2>
+              <div className="flex items-center justify-center space-x-2 min-h-[300px]">
+                <div className="flex space-x-2 items-end justify-center">
+                  {error ? (
+                    <div className=" text-2xl md:text-7xl text-red-500">
+                      {error}
                     </div>
-                  </>
-                )}
+                  ) : loading ? (
+                    <div className=" text-4xl md:text-7xl text-blue-600">
+                      Predicting...
+                    </div>
+                  ) : (
+                    <>
+                      <div className="text-lg md:text-2xl text-cyan-400">
+                        Rs.
+                      </div>
+                      <div className=" text-4xl md:text-7xl text-emerald-500">
+                        {result}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-            <div className=" space-y-4">
-              <div className=" text-cyan-400 font-light border-b border-gray-600">
-                Parameters sent to ml model
-              </div>
-              <div className="text-white font-light text-xs grid grid-cols-2 md:grid-cols-4 gap-2">
-                {Object.keys(filters).map((k, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className="flex space-x-2 bg-gray-700/20 p-1 rounded font-thin"
-                    >
-                      <div className=" font-normal text-gray-300">{k}</div>
-                      <div>:</div>
-                      <div className="">{filters[k]}</div>
-                    </div>
-                  );
-                })}
+
+            <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2 bg-gray-800 overflow-auto">
+              <div className=" space-y-4">
+                <div className=" text-cyan-400 font-light border-b border-gray-600">
+                  Parameters sent to ml model
+                </div>
+                <div className="text-white font-light text-xs grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {Object.keys(filters).map((k, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className="flex space-x-2 bg-gray-700/20 p-1 rounded font-thin"
+                      >
+                        <div className=" font-normal text-gray-300">{k}</div>
+                        <div>:</div>
+                        <div className="">{filters[k]}</div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -241,6 +248,7 @@ function Filter({ onSubmit }) {
                     return {
                       ...provided,
                       color: "white",
+                      overflow: "hidden",
                     };
                   },
                 }}
@@ -322,7 +330,7 @@ function Filter({ onSubmit }) {
                   >
                     {Object.keys(waterSuppyMapping).map((ele, index) => {
                       return (
-                        <option key={index} value={tenantsMapping[ele]}>
+                        <option key={index} value={waterSuppyMapping[ele]}>
                           {ele}
                         </option>
                       );
