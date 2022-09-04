@@ -25,6 +25,7 @@ function App() {
   const [filters, setFilters] = useState({ ...sampleInput });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(0);
+  const [error, seterror] = useState("");
 
   // ['ANYONE', 'BACHELOR', 'COMPANY', 'FAMILY'] -- [0 1 2 3]
   const l1 = ["BOREWELL", "CORPORATION", "CORP_BORE"];
@@ -39,10 +40,15 @@ function App() {
 
   const handleSubmit = async (values) => {
     setLoading(true);
+    seterror("");
     setFilters(values);
-    const res = await predict(values);
-    console.log(res);
-    setResult(res.data);
+    try {
+      const res = await predict(values);
+      console.log(res);
+      setResult(res.data);
+    } catch (err) {
+      seterror("An error occured,s please try again");
+    }
     setLoading(false);
   };
 
@@ -74,7 +80,9 @@ function App() {
             </h2>
             <div className="flex items-center justify-center space-x-2 min-h-[300px]">
               <div className="flex space-x-2 items-end justify-center">
-                {loading ? (
+                {error ? (
+                  <div className="text-7xl text-red-500">{error}</div>
+                ) : loading ? (
                   <div className="text-7xl text-blue-600">Predicting...</div>
                 ) : (
                   <>
