@@ -7,6 +7,7 @@ import {
   facingMapping,
   houseTypeMapping,
   localityMapping,
+  parkingMapping,
   sampleInput,
   tenantsMapping,
   waterSuppyMapping,
@@ -136,7 +137,7 @@ const formikInitialValues = {
   lease_type: 3,
   negotiable: false,
   furnishing: 2,
-  parking: false,
+  parking: 0,
   property_size: 1250,
   property_age: 25,
   bathroom: 2,
@@ -185,7 +186,6 @@ function Filter({ onSubmit }) {
       await onSubmit({
         ...values,
         negotiable: values.negotiable ? 1 : 0,
-        parking: values.parking ? 1 : 0,
         ...amenetiesMapping,
       });
     }
@@ -206,7 +206,6 @@ function Filter({ onSubmit }) {
         onSubmit({
           ...values,
           negotiable: values.negotiable ? 1 : 0,
-          parking: values.parking ? 1 : 0,
           ...amenetiesMapping,
         });
       }}
@@ -482,6 +481,33 @@ function Filter({ onSubmit }) {
                 </div>
               </div>
               <div className="space-y-1">
+                <div className={filterTitle}>Parking</div>
+                <div className="inline-block relative w-full">
+                  <Field
+                    as="select"
+                    name="parking"
+                    className={fieldClassName()}
+                  >
+                    {Object.keys(parkingMapping).map((ele, index) => {
+                      return (
+                        <option value={parkingMapping[ele]} key={index}>
+                          {ele}
+                        </option>
+                      );
+                    })}
+                  </Field>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                      className="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-1">
                 <div className={filterTitle}>Balconies</div>
                 <Field
                   className={fieldClassName()}
@@ -500,11 +526,6 @@ function Filter({ onSubmit }) {
                 <label className="flex space-x-2 text-xs">
                   <Field type="checkbox" name="negotiable"></Field>
                   <div className=" text-gray-400 ">Negotiable</div>
-                </label>
-                {/* Parking */}
-                <label className="flex space-x-2 text-xs">
-                  <Field type="checkbox" name="parking"></Field>
-                  <div className=" text-gray-400 ">Parking</div>
                 </label>
                 {Object.keys(ameneties).map((k, i) => {
                   return (
