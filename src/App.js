@@ -10,11 +10,15 @@ import {
   sampleInput,
   tenantsMapping,
   typesMapping,
+  waterSuppyMapping,
 } from "./utils/mappings";
 import Select from "react-select";
+import { predict } from "./api/requests";
 
 function App() {
   const [filters, setFilters] = useState({ ...sampleInput });
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(0);
 
   // ['ANYONE', 'BACHELOR', 'COMPANY', 'FAMILY'] -- [0 1 2 3]
   const l1 = ["BOREWELL", "CORPORATION", "CORP_BORE"];
@@ -27,7 +31,13 @@ function App() {
     obj[ele] = l2[i];
   });
 
-  console.log(obj);
+  const handleSubmit = async (values) => {
+    setLoading(true);
+    setFilters(values);
+    const res = await predict(values);
+    console.log(res);
+    setResult(0);
+  };
 
   return (
     <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black">
@@ -49,11 +59,7 @@ function App() {
             <h2 className="tracking-widest font-bold text-blue-500 border-b pb-1 border-gray-500">
               Filters
             </h2>
-            <Filter
-              onSubmit={(values) => {
-                setFilters(values);
-              }}
-            ></Filter>
+            <Filter onSubmit={handleSubmit}></Filter>
           </div>
           <div className=" md:col-span-6 shadow-md rounded-lg border border-gray-500 h-full w-full p-2 bg-gray-800 overflow-auto">
             <h2 className="font-light text-gray-400 border-b border-gray-600 pb-1 text-2xl">
@@ -66,8 +72,14 @@ function App() {
               </div>
               <div className="">
                 <div className="flex items-end justify-center space-x-2">
-                  <div className="text-2xl text-gray-400">Rs.</div>
-                  <div className="text-7xl text-green-500">2000</div>
+                  {loading ? (
+                    <div className="text-7xl text-blue-600">Predicting...</div>
+                  ) : (
+                    <>
+                      <div className="text-2xl text-gray-400">Rs.</div>
+                      <div className="text-7xl text-green-500">{result}</div>
+                    </>
+                  )}
                 </div>
                 <div></div>
               </div>
@@ -166,27 +178,25 @@ function Filter({ onSubmit }) {
             {/*  */}
             <div className="space-y-1">
               <div className={filterTitle}>Type</div>
-              <div
-                className="grid grid-cols-3 gap-2 px-2"
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  formik.setFieldValue("type", e.target.value);
-                }}
-              >
-                {types.map((type, index) => {
-                  return (
-                    <label className="flex space-x-2 text-xs" key={index}>
-                      <input
-                        type="radio"
-                        name="type"
-                        value={type.value}
-                        checked={formik.values.type === type.value}
-                        // id="vue-checkbox"
-                      ></input>
-                      <div className=" text-gray-400 ">{type.label}</div>
-                    </label>
-                  );
-                })}
+              <div className="inline-block relative w-full">
+                <Field as="select" name="type" className={fieldClassName()}>
+                  {types.map((ele, index) => {
+                    return (
+                      <option key={index} value={ele.value}>
+                        {ele.label}
+                      </option>
+                    );
+                  })}
+                </Field>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
               </div>
             </div>
             {/*  */}
@@ -213,7 +223,7 @@ function Filter({ onSubmit }) {
                 <Field name="longitude" className={fieldClassName()}></Field>
               </div>
             </div>
-            <div className={getGridClassName(2, 1)}>
+            <div className={getGridClassName(3, 1)}>
               {/*  */}
               <div className="space-y-1">
                 <div className={filterTitle}>Lease type</div>
@@ -267,19 +277,36 @@ function Filter({ onSubmit }) {
                   </div>
                 </div>
               </div>
+              {/*  */}
+              <div className="space-y-1">
+                <div className={filterTitle}>Water supply</div>
+                <div className="inline-block relative w-full">
+                  <Field
+                    as="select"
+                    name="water_supply"
+                    className={fieldClassName()}
+                  >
+                    {Object.keys(waterSuppyMapping).map((ele, index) => {
+                      return (
+                        <option key={index} value={tenantsMapping[ele]}>
+                          {ele}
+                        </option>
+                      );
+                    })}
+                  </Field>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                      className="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className={getGridClassName(2, 1)}>
-              {/* Negotiable */}
-              <label className="flex space-x-2 text-xs">
-                <Field type="checkbox" name="negotiable"></Field>
-                <div className=" text-gray-400 ">Negotiable</div>
-              </label>
-              {/* Parking */}
-              <label className="flex space-x-2 text-xs">
-                <Field type="checkbox" name="parking"></Field>
-                <div className=" text-gray-400 ">Parking</div>
-              </label>
-            </div>
+            {/*  */}
             <div className={getGridClassName(3, 1)}>
               <div>
                 <div className={filterTitle}>Property size</div>
@@ -321,9 +348,14 @@ function Filter({ onSubmit }) {
                   type="number"
                 ></Field>
               </div>
-            </div>
-            {/*  */}
-            <div className="grid grid-cols-2 gap-1">
+              <div>
+                <div className={filterTitle}>Total floors</div>
+                <Field
+                  className={fieldClassName()}
+                  name="total_floor"
+                  type="number"
+                ></Field>
+              </div>
               {/*  */}
               <div className="space-y-1">
                 <div className={filterTitle}>Furnishing</div>
@@ -378,45 +410,17 @@ function Filter({ onSubmit }) {
               </div>
             </div>
             {/*  */}
-            <div className="grid grid-cols-2 gap-1">
-              {/* <div className="space-y-1">
-                <div className={filterTitle}>Available by</div>
-                <div className="inline-block relative w-full">
-                  <DatePicker
-                    selected={formik.values.availableBy}
-                    dateFormat="MMMM d, yyyy"
-                    className={fieldClassName() + ""}
-                    name="availableBy"
-                    onChange={(date) =>
-                      formik.setFieldValue("availableBy", date)
-                    }
-                  />
-                </div>
-              </div> */}
-              {/*  */}
-              <div className="space-y-1">
-                <div className={filterTitle}>Preferred tenants</div>
-                <div className="inline-block relative w-full">
-                  <Field
-                    as="select"
-                    name="tenants"
-                    className={fieldClassName()}
-                  >
-                    <option value="red">Family</option>
-                    <option value="green">Bachelore</option>
-                    <option value="blue">Any</option>
-                  </Field>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg
-                      className="fill-current h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
+            <div className={getGridClassName(2, 1)}>
+              {/* Negotiable */}
+              <label className="flex space-x-2 text-xs">
+                <Field type="checkbox" name="negotiable"></Field>
+                <div className=" text-gray-400 ">Negotiable</div>
+              </label>
+              {/* Parking */}
+              <label className="flex space-x-2 text-xs">
+                <Field type="checkbox" name="parking"></Field>
+                <div className=" text-gray-400 ">Parking</div>
+              </label>
             </div>
             <button
               onClick={formik.handleSubmit}
