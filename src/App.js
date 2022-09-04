@@ -473,7 +473,7 @@ function Filter({ onSubmit }) {
             </div>
             <button
               onClick={formik.handleSubmit}
-              className="text-white bg-transparent bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              className="text-white bg-transparent bg-gradient-to-br from-green-400/20 to-blue-600/50  bg-cyan-600 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full"
             >
               Predict
             </button>
