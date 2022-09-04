@@ -47,7 +47,7 @@ function App() {
       console.log(res);
       setResult(res.data);
     } catch (err) {
-      seterror("An error occured,s please try again");
+      seterror("An error occured, please try again");
     }
     setLoading(false);
   };
@@ -219,6 +219,23 @@ function Filter({ onSubmit }) {
                   formik.setValues({ ...formik.values, locality: data.value });
                 }}
                 className="text-xs bg-transparent"
+                // styles={ReactSelectCustomStyles}
+                styles={{
+                  control: (provided) => {
+                    return {
+                      ...provided,
+                      background: "none",
+                      borderColor: "gray",
+                      color: "white",
+                    };
+                  },
+                  singleValue: (provided) => {
+                    return {
+                      ...provided,
+                      color: "white",
+                    };
+                  },
+                }}
               ></Select>
             </div>
             {/*  */}
