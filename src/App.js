@@ -71,7 +71,7 @@ function App() {
             <h2 className="tracking-widest font-bold text-cyan-400 border-b pb-1 border-gray-500">
               Filters
             </h2>
-            <Filter onSubmit={handleSubmit}></Filter>
+            <Filter onSubmit={() => handleSubmit}></Filter>
           </div>
           <div className=" md:col-span-6 grid gap-4">
             <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2 bg-gray-800 overflow-auto">
@@ -131,50 +131,54 @@ function App() {
   );
 }
 
-function Filter({ onSubmit }) {
-  const formikInitialValues = {
-    type: 1,
-    locality: localityMapping[Object.keys(localityMapping)[0]],
-    latitude: 12.9344709,
-    longitude: 77.634471,
-    lease_type: 3,
-    negotiable: false,
-    furnishing: 2,
-    parking: false,
-    property_size: 1250,
-    property_age: 25,
-    bathroom: 2,
-    facing: 0,
-    cup_board: 2,
-    floor: 6,
-    total_floor: 12,
-    water_supply: 2,
-    building_type: 0,
-    balconies: 2,
-    VP: true,
-    PB: true,
-    HK: false,
-    STP: true,
-    RWH: true,
-    PARK: false,
-    GP: true,
-    SC: true,
-    SECURITY: true,
-    SERVANT: false,
-    FS: true,
-    CPA: true,
-    GYM: true,
-    CLUB: true,
-    LIFT: true,
-    INTERNET: true,
-    AC: false,
-    INTERCOM: true,
-    POOL: true,
-  };
+const formikInitialValues = {
+  type: 1,
+  locality: localityMapping[Object.keys(localityMapping)[0]],
+  latitude: 12.9344709,
+  longitude: 77.634471,
+  lease_type: 3,
+  negotiable: false,
+  furnishing: 2,
+  parking: false,
+  property_size: 1250,
+  property_age: 25,
+  bathroom: 2,
+  facing: 0,
+  cup_board: 2,
+  floor: 6,
+  total_floor: 12,
+  water_supply: 2,
+  building_type: 0,
+  balconies: 2,
+  VP: true,
+  PB: true,
+  HK: false,
+  STP: true,
+  RWH: true,
+  PARK: false,
+  GP: true,
+  SC: true,
+  SECURITY: true,
+  SERVANT: false,
+  FS: true,
+  CPA: true,
+  GYM: true,
+  CLUB: true,
+  LIFT: true,
+  INTERNET: true,
+  AC: false,
+  INTERCOM: true,
+  POOL: true,
+};
 
+const getVals = () => {
+  return formikInitialValues;
+};
+
+function Filter({ onSubmit }) {
   useEffect(() => {
     async function initialSubmit() {
-      const values = formikInitialValues;
+      const values = getVals();
       const amenetiesMapping = {};
 
       Object.keys(ameneties).forEach((k) => {
@@ -190,7 +194,7 @@ function Filter({ onSubmit }) {
     }
 
     initialSubmit();
-  }, []);
+  }, [onSubmit]);
 
   return (
     <Formik
