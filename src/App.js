@@ -80,13 +80,19 @@ function App() {
             <div className="flex items-center justify-center space-x-2 min-h-[300px]">
               <div className="flex space-x-2 items-end justify-center">
                 {error ? (
-                  <div className="text-7xl text-red-500">{error}</div>
+                  <div className=" text-4xl md:text-7xl text-red-500">
+                    {error}
+                  </div>
                 ) : loading ? (
-                  <div className="text-7xl text-blue-600">Predicting...</div>
+                  <div className=" text-4xl md:text-7xl text-blue-600">
+                    Predicting...
+                  </div>
                 ) : (
                   <>
-                    <div className="text-2xl text-cyan-400">Rs.</div>
-                    <div className="text-7xl text-green-500">{result}</div>
+                    <div className="text-lg md:text-2xl text-cyan-400">Rs.</div>
+                    <div className=" text-4xl md:text-7xl text-green-500">
+                      {result}
+                    </div>
                   </>
                 )}
               </div>
@@ -95,7 +101,7 @@ function App() {
               <div className=" text-cyan-400 font-light border-b border-gray-600">
                 Parameters sent to ml model
               </div>
-              <div className="text-white font-light text-xs grid md:grid-cols-4 gap-2">
+              <div className="text-white font-light text-xs grid grid-cols-2 md:grid-cols-4 gap-2">
                 {Object.keys(filters).map((k, i) => {
                   return (
                     <div
@@ -428,7 +434,7 @@ function Filter({ onSubmit }) {
               <div className=" text-blue-600 font-bold tracking-wider border-b border-gray-500 pb-1">
                 Amenities
               </div>
-              <div className={"grid grid-cols-5 gap-2"}>
+              <div className={"grid grid-cols-3 md:grid-cols-5 gap-2"}>
                 <label className="flex space-x-2 text-xs">
                   <Field type="checkbox" name="negotiable"></Field>
                   <div className=" text-gray-400 ">Negotiable</div>
