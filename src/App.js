@@ -107,14 +107,14 @@ function App() {
                 <div className=" text-cyan-400 font-light border-b border-gray-600">
                   Parameters sent to ml model
                 </div>
-                <div className="text-white font-light text-xs grid grid-cols-2 md:grid-cols-4 gap-2">
+                <div className="text-white font-light text-sm grid grid-cols-2 md:grid-cols-4 gap-2">
                   {Object.keys(filters).map((k, i) => {
                     return (
                       <div
                         key={i}
-                        className="flex space-x-2 bg-gray-700/20 p-1 rounded font-thin"
+                        className="flex space-x-2 bg-gray-700/20 p-1 rounded"
                       >
-                        <div className=" font-normal text-gray-300">{k}</div>
+                        <div className=" text-gray-400 font-bold">{k}</div>
                         <div>:</div>
                         <div className="">{filters[k]}</div>
                       </div>
