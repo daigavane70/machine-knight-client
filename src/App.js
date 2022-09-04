@@ -2,7 +2,7 @@ import { Field, Formik } from "formik";
 import "./App.css";
 // import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   facingMapping,
   houseTypeMapping,
@@ -132,47 +132,69 @@ function App() {
 }
 
 function Filter({ onSubmit }) {
+  const formikInitialValues = {
+    type: 1,
+    locality: localityMapping[Object.keys(localityMapping)[0]],
+    latitude: 12.9344709,
+    longitude: 77.634471,
+    lease_type: 3,
+    negotiable: false,
+    furnishing: 2,
+    parking: false,
+    property_size: 1250,
+    property_age: 25,
+    bathroom: 2,
+    facing: 0,
+    cup_board: 2,
+    floor: 6,
+    total_floor: 12,
+    water_supply: 2,
+    building_type: 0,
+    balconies: 2,
+    VP: true,
+    PB: true,
+    HK: false,
+    STP: true,
+    RWH: true,
+    PARK: false,
+    GP: true,
+    SC: true,
+    SECURITY: true,
+    SERVANT: false,
+    FS: true,
+    CPA: true,
+    GYM: true,
+    CLUB: true,
+    LIFT: true,
+    INTERNET: true,
+    AC: false,
+    INTERCOM: true,
+    POOL: true,
+  };
+
+  useEffect(() => {
+    async function initialSubmit() {
+      const values = formikInitialValues;
+      const amenetiesMapping = {};
+
+      Object.keys(ameneties).forEach((k) => {
+        amenetiesMapping[k] = values[k] ? 1 : 0;
+      });
+
+      await onSubmit({
+        ...values,
+        negotiable: values.negotiable ? 1 : 0,
+        parking: values.parking ? 1 : 0,
+        ...amenetiesMapping,
+      });
+    }
+
+    initialSubmit();
+  }, []);
+
   return (
     <Formik
-      initialValues={{
-        type: 1,
-        locality: localityMapping[Object.keys(localityMapping)[0]],
-        latitude: 12.9344709,
-        longitude: 77.634471,
-        lease_type: 3,
-        negotiable: false,
-        furnishing: 2,
-        parking: false,
-        property_size: 1250,
-        property_age: 25,
-        bathroom: 2,
-        facing: 0,
-        cup_board: 2,
-        floor: 6,
-        total_floor: 12,
-        water_supply: 2,
-        building_type: 0,
-        balconies: 2,
-        VP: true,
-        PB: true,
-        HK: false,
-        STP: true,
-        RWH: true,
-        PARK: false,
-        GP: true,
-        SC: true,
-        SECURITY: true,
-        SERVANT: false,
-        FS: true,
-        CPA: true,
-        GYM: true,
-        CLUB: true,
-        LIFT: true,
-        INTERNET: true,
-        AC: false,
-        INTERCOM: true,
-        POOL: true,
-      }}
+      initialValues={formikInitialValues}
       onSubmit={(values) => {
         const amenetiesMapping = {};
 
