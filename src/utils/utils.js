@@ -51,3 +51,17 @@ export const ameneties = {
   INTERCOM: 1,
   POOL: 1,
 };
+
+export const ReactSelectCustomStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: "1px dotted pink",
+    color: state.isSelected ? "red" : "blue",
+  }),
+  control: () => ({
+    // none of react-select's styles are passed to <Control />
+  }),
+  singleValue: (provided, state) => {
+    return { ...provided };
+  },
+};
