@@ -18,7 +18,6 @@ import {
   fieldClassName,
   filterTitle,
   furnishing,
-  getGridClassName,
   types,
 } from "./utils/utils";
 
@@ -73,26 +72,35 @@ function App() {
             <h2 className="font-light text-gray-400 border-b border-gray-600 pb-1 text-2xl">
               Prediction
             </h2>
-            <div className="justify-items-center text-center py-8">
-              <div className="flex items-end justify-center space-x-2">
+            <div className="flex items-center justify-center space-x-2 min-h-[300px]">
+              <div className="flex space-x-2 items-end justify-center">
                 {loading ? (
                   <div className="text-7xl text-blue-600">Predicting...</div>
                 ) : (
                   <>
-                    <div className="text-2xl text-gray-400">Rs.</div>
+                    <div className="text-2xl text-cyan-400">Rs.</div>
                     <div className="text-7xl text-green-500">{result}</div>
                   </>
                 )}
               </div>
-              <div></div>
             </div>
             <div className=" space-y-4">
-              <div className="space-x-4">
-                <div className="text-white font-light text-sm">
-                  {Object.keys(filters).map((k, i) => {
-                    return <td>{filters[k]}</td>;
-                  })}
-                </div>
+              <div className=" text-cyan-400 font-light border-b border-gray-600">
+                Parameters sent to ml model
+              </div>
+              <div className="text-white font-light text-xs grid md:grid-cols-4 gap-2">
+                {Object.keys(filters).map((k, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className="flex space-x-2 bg-gray-700/20 p-1 rounded font-thin"
+                    >
+                      <div className=" font-normal text-gray-300">{k}</div>
+                      <div>:</div>
+                      <div className="">{filters[k]}</div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -212,7 +220,7 @@ function Filter({ onSubmit }) {
                 <Field name="longitude" className={fieldClassName()}></Field>
               </div>
             </div>
-            <div className={getGridClassName(3, 1)}>
+            <div className={"grid grid-cols-3 gap-1"}>
               {/*  */}
               <div className="space-y-1">
                 <div className={filterTitle}>Lease type</div>
@@ -296,7 +304,7 @@ function Filter({ onSubmit }) {
               </div>
             </div>
             {/*  */}
-            <div className={getGridClassName(3, 1)}>
+            <div className={"grid grid-cols-3 gap-1"}>
               <div>
                 <div className={filterTitle}>Property size</div>
                 <Field
@@ -414,7 +422,7 @@ function Filter({ onSubmit }) {
               <div className=" text-blue-600 font-bold tracking-wider border-b border-gray-500 pb-1">
                 Amenities
               </div>
-              <div className={getGridClassName(5, 2)}>
+              <div className={"grid grid-cols-5 gap-2"}>
                 <label className="flex space-x-2 text-xs">
                   <Field type="checkbox" name="negotiable"></Field>
                   <div className=" text-gray-400 ">Negotiable</div>
