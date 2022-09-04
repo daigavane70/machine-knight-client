@@ -52,7 +52,7 @@ function App() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+    <div className="bg-gradient-to-r from-gray-700/40 via-gray-900/20 to-black/40 bg-transparent">
       {/* Header */}
       <div className="p-4 bg-gray-800 h-[60px] shadow-md grid md:grid-cols-3 content-center justify-items-center fixed top-0 left-0 w-full z-10">
         <h1 className="tracking-widest font-md text-lg text-cyan-500">
@@ -66,15 +66,15 @@ function App() {
       {/* Body */}
       <div className="h-screen pt-[60px] overflow-auto">
         <div className="mx-auto p-4 md:h-full grid md:grid-cols-8 gap-4 overflow-auto">
-          <div className="md:col-span-2 bg-gray-800 rounded-md h-full w-full p-4 space-y-2">
+          <div className="md:col-span-2  bg-gray-800/80 backdrop-blur rounded-md h-full w-full p-4 space-y-2">
             <h2 className="tracking-widest font-bold text-cyan-400 border-b pb-1 border-gray-500">
               Filters
             </h2>
             <Filter onSubmit={(values) => handleSubmit(values)}></Filter>
           </div>
           <div className=" md:col-span-6 grid gap-4">
-            <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2 bg-gray-800 overflow-auto">
-              <h2 className="font-light text-gray-400 border-b border-gray-600 pb-1 text-2xl">
+            <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2  bg-gray-800/40 backdrop-blur overflow-auto">
+              <h2 className="text-cyan-400 border-b border-gray-600 pb-1 text-2xl">
                 Prediction
               </h2>
               <div className="flex items-center justify-center space-x-2 min-h-[300px]">
@@ -101,25 +101,23 @@ function App() {
               </div>
             </div>
 
-            <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2 bg-gray-800 overflow-auto">
-              <div className=" space-y-4">
-                <div className=" text-cyan-400 font-light border-b border-gray-600">
-                  Parameters sent to ml model
-                </div>
-                <div className="text-white font-light text-sm grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {Object.keys(filters).map((k, i) => {
-                    return (
-                      <div
-                        key={i}
-                        className="flex space-x-2 bg-gray-700/20 p-1 rounded"
-                      >
-                        <div className=" text-gray-400 font-bold">{k}</div>
-                        <div>:</div>
-                        <div className="">{filters[k]}</div>
-                      </div>
-                    );
-                  })}
-                </div>
+            <div className=" shadow-md rounded-lg border border-gray-500 w-full p-2 bg-gray-800/40 backdrop-blur overflow-auto space-y-4">
+              <div className=" text-cyan-400 font-light border-b border-gray-600">
+                Parameters sent to ml model
+              </div>
+              <div className="text-white font-light text-sm grid grid-cols-2 md:grid-cols-4 gap-2">
+                {Object.keys(filters).map((k, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className="flex space-x-2 bg-gray-700/20 p-1 rounded"
+                    >
+                      <div className=" text-gray-400 font-bold">{k}</div>
+                      <div>:</div>
+                      <div className="">{filters[k]}</div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

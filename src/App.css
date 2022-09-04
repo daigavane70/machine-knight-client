@@ -13,3 +13,11 @@
 * {
   font-family: "Quicksand", sans-serif;
 }
+
+body {
+  /* background-image: url(https://uploads-ssl.webflow.com/61725a728a49934d20932abe/61725a728a4993bfec932bf0_background-about-hero-tech-ui-kit-webflow-template.svg); */
+  background: url(https://wallpaperaccess.com/full/3338286.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
